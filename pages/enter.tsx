@@ -62,7 +62,7 @@ const SignInButton = () => {
 };
 
 const UsernameForm = () => {
-  return null;
+  return <button onClick={() => auth.signOut()}>Sign Out</button>;
 };
 
 const SignOutButton = () => {
