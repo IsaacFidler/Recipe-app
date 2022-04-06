@@ -1,13 +1,16 @@
+import React, { useContext } from "react";
 import type { NextPage } from "next";
 import { auth, googleAuthProvider } from "../lib/firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import styles from "../styles/enter.module.scss";
-const enterPage: NextPage = ({}) => {
+import { UserContext } from "../lib/context";
+
+const EnterPage: NextPage = ({}) => {
   // 1. user signed out <SignInButton/>
   // 2. user signed in , but missing username <UsernameForm/>
   // 3. user signed in, has username <SignOutButton/>
-  const user = null;
-  const username = null;
+  const { user, username } = useContext(UserContext);
+
   return (
     <main>
       {user ? (
@@ -23,7 +26,7 @@ const enterPage: NextPage = ({}) => {
   );
 };
 
-export default enterPage;
+export default EnterPage;
 
 const SignInButton = () => {
   const signInWithGoogle = async () => {
