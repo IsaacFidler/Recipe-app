@@ -1,14 +1,16 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
+import toast from "react-hot-toast";
 import Skeleton from "react-loading-skeleton";
 import styles from "../styles/Home.module.scss";
 
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
+      <button onClick={() => toast.success("hello isaac")}>Toast Me</button>
       <Skeleton count={5} style={{ width: 50 }} />
+      <h1>home</h1>
     </div>
   );
 };
