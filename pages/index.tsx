@@ -9,7 +9,6 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <button onClick={() => toast.success("hello isaac")}>Toast Me</button>
-      <Skeleton count={5} style={{ width: 50 }} />
       <h1>home</h1>
     </div>
   );
