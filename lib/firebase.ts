@@ -1,12 +1,12 @@
 import firebase from "firebase/app";
 import {
   collection,
-  getDoc,
   getDocs,
   getFirestore,
   limit,
   query,
   where,
+  Timestamp,
 } from "firebase/firestore";
 
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
@@ -54,6 +54,8 @@ export function postToJSON(doc: any) {
     updatedAt: data.updatedAt.toMillis(),
   };
 }
+
+export const fromMillis = Timestamp.fromMillis;
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
