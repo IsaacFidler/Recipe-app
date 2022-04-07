@@ -8,8 +8,6 @@ import {
   doc,
   serverTimestamp,
   orderBy,
-  DocumentReference,
-  DocumentData,
   setDoc,
 } from "firebase/firestore";
 import { query as queryFirestore } from "firebase/firestore";
@@ -75,6 +73,7 @@ function CreateNewPost() {
     const uid = auth.currentUser!.uid;
 
     const ref = doc(doc(firestore, "users", uid), "posts", slug);
+
     // Tip: give all fields a default value here
 
     const data = {
