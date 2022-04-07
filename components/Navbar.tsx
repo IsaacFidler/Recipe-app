@@ -7,7 +7,6 @@ type Props = {};
 
 const Navbar = ({}: Props) => {
   const { user, username } = useContext(UserContext);
-  console.log(username);
   return (
     <nav className={styles.navbar}>
       <ul>

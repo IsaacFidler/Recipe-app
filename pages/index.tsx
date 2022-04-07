@@ -2,8 +2,9 @@ import type { NextPage } from "next";
 import toast from "react-hot-toast";
 import { firestore, postToJSON, fromMillis } from "../lib/firebase";
 import styles from "../styles/Home.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
+  collection,
   collectionGroup,
   getDocs,
   limit,
@@ -16,7 +17,7 @@ import { query as queryFirestore } from "firebase/firestore";
 import PostFeed from "../components/PostFeed";
 import Skeleton from "react-loading-skeleton";
 
-const LIMIT = 1;
+const LIMIT = 3;
 
 export async function getServerSideProps(context: any) {
   const postsQuery = query(
@@ -33,19 +34,21 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-const Home: NextPage = ({ posts }: any) => {
-  const [postsm, setPosts] = useState(posts);
+const Home: NextPage = (props: any) => {
+  console.log(props);
+  const [posts, setPosts] = useState(props.posts);
   const [loading, setLoading] = useState(false);
-
   const [postsEnd, setPostsEnd] = useState(false);
+
   const getMorePosts = async () => {
     setLoading(true);
     const last = posts[posts.length - 1];
+
     const cursor =
       typeof last.createdAt == "number"
-        ? fromMillis(last.createAt)
+        ? fromMillis(last.createdAt)
         : last.createdAt;
-
+    console.log(cursor);
     const query = queryFirestore(
       collectionGroup(firestore, "posts"),
       where("published", "==", true),
@@ -62,6 +65,7 @@ const Home: NextPage = ({ posts }: any) => {
       setPostsEnd(true);
     }
   };
+
   return (
     <div className={styles.container}>
       <PostFeed posts={posts} />

@@ -12,7 +12,6 @@ export const useUserData = () => {
 
     if (user) {
       unsubscribe = onSnapshot(doc(firestore, "users", user.uid), (doc) => {
-        console.log("Current data: ", doc.data());
         setUsername(doc.data()?.username);
       });
     } else {
