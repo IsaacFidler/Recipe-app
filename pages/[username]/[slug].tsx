@@ -7,12 +7,13 @@ import {
   query,
 } from "firebase/firestore";
 import type { NextPage } from "next";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
-
+import PostContent from "../../components/PostContent";
 export async function getStaticProps({ params }: any) {
   //grab username slug from url, get the user document from username if it exists make a reference to the post itself with the slug as the id.
   //we can then fetch the post data and then convert thet post data to json data.
-  //also setting the prop for path which makes it easier to refetch the data on the client side when we want to hydrate it to real time data.
+  //also setting the prop for paths which makes it easier to refetch the data on the client side when we want to hydrate it to real time data.
   //revalidate tells next to refetch this data on the server when new requests come in but on to do so in 5000 ms.
   const { username, slug } = params;
 
@@ -53,11 +54,23 @@ export async function getStaticPaths() {
   };
 }
 
-const PostPage: NextPage = ({}) => {
+const PostPage: NextPage = ({ props }: any) => {
+  const postRef = doc(firestore, props.path);
+  const [realtimePost] = useDocumentData(postRef);
+
+  const post = realtimePost || props.post;
   return (
-    <>
-      <h1>Post Page</h1>
-    </>
+    <div>
+      <section>
+        <PostContent post={post} />
+      </section>
+
+      <aside>
+        <p>
+          <strong>{post.heartCount || 0} 🤍 </strong>
+        </p>
+      </aside>
+    </div>
   );
 };
 
