@@ -1,11 +1,9 @@
-import type { NextPage } from "next";
+import AuthCheck from "../../components/AuthCheck";
 
-const AdminPostsPage: NextPage = ({}) => {
+export default function AdminPostsPage(props: any) {
   return (
-    <>
-      <h1>Admin Posts Page</h1>
-    </>
+    <main>
+      <AuthCheck></AuthCheck>
+    </main>
   );
-};
-
-export default AdminPostsPage;
+}
