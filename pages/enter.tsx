@@ -131,38 +131,38 @@ const UsernameForm = () => {
     }, 500),
     []
   );
-  return (
-    !username && (
-      <section>
-        <h3>Choose Username</h3>
-        <form onSubmit={onSubmit}>
-          <input
-            name="username"
-            placeholder="myname"
-            value={formValue}
-            onChange={onChange}
-          />
-          <UsernameMessage
-            username={formValue}
-            isValid={isValid}
-            loading={loading}
-            className={styles.usernameMessage}
-          />
-          <button type="submit" className="btn-green" disabled={!isValid}>
-            Choose
-          </button>
+  return !username ? (
+    <section>
+      <h3>Choose Username</h3>
+      <form onSubmit={onSubmit}>
+        <input
+          name="username"
+          placeholder="myname"
+          value={formValue}
+          onChange={onChange}
+        />
+        <UsernameMessage
+          username={formValue}
+          isValid={isValid}
+          loading={loading}
+          className={styles.usernameMessage}
+        />
+        <button type="submit" className="btn-green" disabled={!isValid}>
+          Choose
+        </button>
 
-          <h3>Debug State</h3>
-          <div>
-            Username: {formValue}
-            <br />
-            Loading: {loading.toString()}
-            <br />
-            Username Valid: {isValid.toString()}
-          </div>
-        </form>
-      </section>
-    )
+        <h3>Debug State</h3>
+        <div>
+          Username: {formValue}
+          <br />
+          Loading: {loading.toString()}
+          <br />
+          Username Valid: {isValid.toString()}
+        </div>
+      </form>
+    </section>
+  ) : (
+    <></>
   );
 };
 
