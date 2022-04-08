@@ -23,21 +23,14 @@ export default function AdminPostsPage(props: any) {
   return (
     <main>
       <AuthCheck>
-        <PostList />
         <CreateNewPost />
+        <PostList />
       </AuthCheck>
     </main>
   );
 }
 
 function PostList() {
-  // const ref = firestore
-  //   .collection("users")
-  //   .doc(auth.currentUser.uid)
-  //   .collection("posts");
-  // const query = ref.orderBy("createdAt");
-  // const [querySnapshot] = useCollection(query);
-
   const ref1 = collection(
     doc(firestore, "users", auth.currentUser!.uid),
     "posts"
@@ -49,7 +42,6 @@ function PostList() {
   const posts = querySnapshot?.docs.map((doc) => doc.data());
   return (
     <>
-      <h1>Manage your Posts</h1>
       <PostFeed posts={posts} admin />
     </>
   );
@@ -97,17 +89,22 @@ function CreateNewPost() {
   };
 
   return (
-    <form onSubmit={createPost}>
+    <form className={styles.createForm} onSubmit={createPost}>
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="My Awesome Article!"
         className={styles.input}
+        type={"text"}
       />
       <p>
         <strong>Slug:</strong> {slug}
       </p>
-      <button type="submit" disabled={!isValid} className="btn-green">
+      <button
+        type="submit"
+        disabled={!isValid}
+        className={styles.createNewPost}
+      >
         Create New Post
       </button>
     </form>

@@ -1,0 +1,53 @@
+@import "variables";
+
+.text {
+  color: #cecac3;
+}
+.postListContainer {
+  margin: 0 2rem;
+  padding: rem 1rem;
+}
+
+.card {
+}
+
+.breakLine {
+  width: 100%;
+  margin: 1.5rem 0rem;
+  color: #4c4c4c73;
+}
+
+.username {
+  font-size: x-small;
+  cursor: pointer;
+  color: #7a7a7a;
+}
+
+.title {
+  margin: 0.5rem 0rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.footer {
+  font-size: small;
+
+  // color: #7a7a7a;
+}
+
+.adminSection {
+  display: flex;
+  padding: -2rem;
+}
+.editButton {
+  border: 1px solid rgb(84, 84, 84);
+  padding: 0.4rem 1rem;
+  padding-top: 0.6rem;
+  border-radius: 50px;
+  background-color: $color-bgLigh;
+}
+.tickButton {
+  cursor: default;
+  padding: 0.1rem;
+  margin: 0px;
+}

@@ -66,6 +66,10 @@ const Home: NextPage = (props: any) => {
 
   return (
     <div className={styles.container}>
+      <div>
+        <h1>Posts</h1>
+        <br className={styles.br}></br>
+      </div>
       <PostFeed posts={posts} />
       {!loading && !postsEnd && (
         <button onClick={getMorePosts}>Load More </button>

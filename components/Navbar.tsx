@@ -4,6 +4,9 @@ import styles from "../styles/Navbar.module.scss";
 import { UserContext } from "../lib/context";
 import { auth } from "../lib/firebase";
 import router from "next/router";
+import { AiOutlineHome } from "react-icons/ai";
+import { BsPencil } from "react-icons/bs";
+
 type Props = {};
 
 const Navbar = ({}: Props) => {
@@ -18,7 +21,9 @@ const Navbar = ({}: Props) => {
       <ul>
         <li>
           <Link href="/" passHref>
-            <button className={styles.buttonLogo}>FEED</button>
+            <button className={styles.buttonLogo}>
+              <AiOutlineHome />
+            </button>
           </Link>
         </li>
         {/* user is signed in and has a username */}
@@ -26,7 +31,9 @@ const Navbar = ({}: Props) => {
           <>
             <li className={styles.pushLeft}>
               <Link href="/admin" passHref>
-                <button className={styles.buttonBlue}>Write Recipe</button>
+                <button className={styles.buttonBlue}>
+                  <BsPencil />
+                </button>
               </Link>
             </li>
             <li className={styles.pushLeft}>
