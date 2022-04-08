@@ -107,9 +107,6 @@ const UsernameForm = () => {
       setLoading(true);
       setIsValid(false);
     }
-
-    console.log(e.target.value);
-    console.log(isValid);
   };
 
   useEffect(() => {
@@ -124,7 +121,6 @@ const UsernameForm = () => {
         const ref = doc(firestore, `usernames/${username}`);
         const docSnap = await getDoc(ref);
 
-        console.log("Firestore read executed!");
         setIsValid(!docSnap.exists());
         setLoading(false);
       }

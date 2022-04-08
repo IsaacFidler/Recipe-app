@@ -35,7 +35,6 @@ export async function getServerSideProps(context: any) {
 }
 
 const Home: NextPage = (props: any) => {
-  console.log(props);
   const [posts, setPosts] = useState(props.posts);
   const [loading, setLoading] = useState(false);
   const [postsEnd, setPostsEnd] = useState(false);
@@ -48,7 +47,6 @@ const Home: NextPage = (props: any) => {
       typeof last.createdAt == "number"
         ? fromMillis(last.createdAt)
         : last.createdAt;
-    console.log(cursor);
     const query = queryFirestore(
       collectionGroup(firestore, "posts"),
       where("published", "==", true),

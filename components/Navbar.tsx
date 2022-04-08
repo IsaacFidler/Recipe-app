@@ -2,11 +2,17 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.scss";
 import { UserContext } from "../lib/context";
-
+import { auth } from "../lib/firebase";
+import router from "next/router";
 type Props = {};
 
 const Navbar = ({}: Props) => {
   const { user, username } = useContext(UserContext);
+
+  const signOut = () => {
+    auth.signOut();
+    router.reload();
+  };
   return (
     <nav className={styles.navbar}>
       <ul>
@@ -22,6 +28,9 @@ const Navbar = ({}: Props) => {
               <Link href="/admin" passHref>
                 <button className={styles.buttonBlue}>Write Recipe</button>
               </Link>
+            </li>
+            <li className={styles.pushLeft}>
+              <button onClick={signOut}>Sign Out</button>
             </li>
             <li>
               <Link href={`/${username}`} passHref>

@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import ImageUploader from "../../components/ImageUploader";
 
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useForm } from "react-hook-form";
@@ -91,6 +92,8 @@ function PostForm({ defaultValues, postRef, preview }: any) {
       )}
 
       <div className={preview ? styles.hidden : styles.controls}>
+        <ImageUploader />
+
         <textarea {...register("content")}></textarea>
 
         <fieldset>
