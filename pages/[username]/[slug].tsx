@@ -66,7 +66,7 @@ const PostPage: NextPage = (props: any) => {
 
   const post = realtimePost || props.post;
   return (
-    <div>
+    <div className="postDetailContainer">
       <section>
         <PostContent post={post} />
       </section>

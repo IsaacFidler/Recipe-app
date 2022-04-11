@@ -54,8 +54,11 @@ button[disabled] {
 }
 
 .buttonBlue {
-  background-color: $color-blue;
+  // background-color: $color-blue;
   color: white;
+  width: 200px;
+  padding: 1rem;
+  border-radius: 40px;
 }
 
 .createNewPost {
@@ -68,4 +71,19 @@ button[disabled] {
   padding-top: 0.6rem;
   border-radius: 50px;
   background-color: $color-bgLigh;
+}
+
+.uploadForm {
+  padding: 1rem;
+  display: flex;
+}
+
+.postDetailContainer {
+  margin: 2rem;
+}
+
+.card2 {
+  width: 50%;
+  height: 100%;
+  overflow-y: scroll;
 }

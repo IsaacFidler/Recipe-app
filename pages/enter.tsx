@@ -6,7 +6,7 @@ import styles from "../styles/enter.module.scss";
 import { UserContext } from "../lib/context";
 import { debounce } from "lodash";
 import { doc, getDoc, writeBatch } from "firebase/firestore";
-
+import { FcGoogle } from "react-icons/fc";
 const EnterPage: NextPage = ({}) => {
   // 1. user signed out <SignInButton/>
   // 2. user signed in , but missing username <UsernameForm/>
@@ -57,8 +57,9 @@ const SignInButton = () => {
   };
 
   return (
-    <button className={styles.buttonGoogle} onClick={signInWithGoogle}>
-      sign in with google
+    <button className={"button2"} onClick={signInWithGoogle}>
+      <FcGoogle />
+      Sign in with Google
     </button>
   );
 };

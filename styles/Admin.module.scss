@@ -20,7 +20,7 @@
 }
 
 .inputBlock {
-  width: 100%;
+  width: 50%;
   height: 200px;
   color: $color-text;
   text-align: top;
@@ -43,4 +43,9 @@
 
 .postList {
   margin: 0rem 2rem;
+}
+
+.textContainer {
+  display: flex;
+  height: 200px;
 }

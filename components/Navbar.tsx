@@ -6,6 +6,7 @@ import { auth } from "../lib/firebase";
 import router from "next/router";
 import { AiOutlineHome } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
+import Image from "next/image";
 
 type Props = {};
 
@@ -21,9 +22,13 @@ const Navbar = ({}: Props) => {
       <ul>
         <li>
           <Link href="/" passHref>
-            <button className={styles.buttonLogo}>
+            {/* <button className={styles.buttonLogo}>
               <AiOutlineHome />
-            </button>
+            </button> */}
+            <div>
+              {/* <image src="/../public/logo.png" /> */}
+              <img src="../public/logo.png" />
+            </div>
           </Link>
         </li>
         {/* user is signed in and has a username */}

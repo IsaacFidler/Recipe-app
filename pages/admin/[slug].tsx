@@ -26,7 +26,7 @@ export default function AdminPostEdit(props: any) {
 }
 
 function PostManager() {
-  const [preview, setPreview] = useState(false);
+  const [preview, setPreview] = useState(true);
 
   const router = useRouter();
   const { slug } = router.query;
@@ -85,20 +85,20 @@ function PostForm({ defaultValues, postRef, preview }: any) {
 
   return (
     <form className={styles.formContainer} onSubmit={handleSubmit(updatePost)}>
-      {preview && (
-        <div className="card">
-          <ReactMarkdown>{watch("content")}</ReactMarkdown>
-        </div>
-      )}
-
       <div className={preview ? styles.hidden : styles.controls}>
-        <ImageUploader />
+        <div className={styles.textContainer}>
+          <textarea
+            className={styles.inputBlock}
+            {...register("content")}
+          ></textarea>
+          {preview && (
+            <div className="card2">
+              <ReactMarkdown>{watch("content")}</ReactMarkdown>
+            </div>
+          )}
 
-        <textarea
-          className={styles.inputBlock}
-          {...register("content")}
-        ></textarea>
-
+          <ImageUploader />
+        </div>
         <fieldset>
           <input
             className="checkbox"

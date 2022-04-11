@@ -3,9 +3,9 @@
 }
 
 .downloadContainer {
-  border: 1px solid red;
-  padding: 2rem 0rem;
+  border-bottom: 1px solid rgb(66, 66, 66);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
 }
