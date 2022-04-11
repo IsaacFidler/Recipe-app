@@ -1,3 +1,11 @@
 .UserProfilePage {
   margin: 0rem 2rem;
 }
+
+.downloadContainer {
+  border: 1px solid red;
+  padding: 2rem 0rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

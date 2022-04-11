@@ -12,9 +12,9 @@ export default function PostFeed({ posts, admin }: Props2) {
   return (
     <div className={styles.postListContainer}>
       {posts
-        ? posts.map((post: any) => (
+        ? posts.map((post: any, index: number) => (
             <>
-              <PostItem post={post} key={post.slug} admin={admin} />
+              <PostItem post={post} key={index} admin={admin} />
               <hr className={styles.breakLine}></hr>
             </>
           ))

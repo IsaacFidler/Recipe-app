@@ -5,6 +5,8 @@ import PostFeed from "../../components/PostFeed";
 import { collection, getDocs, limit, orderBy, where } from "firebase/firestore";
 import { query as queryFirestore } from "firebase/firestore";
 import styles from "../../styles/user.module.scss";
+import DownloadCsv from "../../components/DownloadCsv";
+import UploadCsv from "../../components/UploadCsv";
 export async function getServerSideProps({ query }: any) {
   //get from url
   const { username } = query;
@@ -43,10 +45,13 @@ type Props = {
 };
 
 const UserProfilePage = ({ user, posts }: Props) => {
-  console.log(posts);
   return (
     <div className={styles.UserProfilePage}>
       <UserProfile user={user} />
+      <div className={styles.downloadContainer}>
+        <DownloadCsv posts={posts} />
+        <UploadCsv posts={posts} user={user} />
+      </div>
       <PostFeed posts={posts} />
     </div>
   );
