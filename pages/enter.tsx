@@ -7,6 +7,8 @@ import { UserContext } from "../lib/context";
 import { debounce } from "lodash";
 import { doc, getDoc, writeBatch } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc";
+import Onboarding1 from "../components/onboarding1";
+import Onboarding2 from "../components/Onboarding2";
 const EnterPage: NextPage = ({}) => {
   // 1. user signed out <SignInButton/>
   // 2. user signed in , but missing username <UsernameForm/>
@@ -71,6 +73,39 @@ const UsernameForm = () => {
 
   const { user, username } = useContext(UserContext);
 
+  const [step, setstep] = useState(1);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    company: "",
+    farmName: "",
+    regen: "",
+    age: "",
+    email: "",
+  });
+  console.log(setstep);
+  // function for going to next step by increasing step state by 1
+  const nextStep = () => {
+    setstep(step + 1);
+  };
+
+  // function for going to previous step by decreasing step state by 1
+  const prevStep = () => {
+    setstep(step - 1);
+  };
+
+  // handling form input data by taking onchange value and updating our previous form data state
+  const handleInputData = (input: any) => (e: any) => {
+    // input value from the form
+    const { value } = e.target;
+
+    //updating for data state taking previous state and then adding new value to create new object
+    setFormData((prevState) => ({
+      ...prevState,
+      [input]: value,
+    }));
+  };
+
   const onSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -85,6 +120,11 @@ const UsernameForm = () => {
       username: formValue,
       photoURL: user.photoURL,
       displayName: user.displayName,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      company: formData.company,
+      farmName: formData.farmName,
+      regen: formData.regen,
     });
     batch.set(usernameDoc, { uid: user.uid });
 
@@ -128,39 +168,58 @@ const UsernameForm = () => {
     }, 500),
     []
   );
-  return !username ? (
-    <section>
-      <h3>Choose Username</h3>
-      <form onSubmit={onSubmit}>
-        <input
-          name="username"
-          placeholder="myname"
-          value={formValue}
-          onChange={onChange}
-        />
-        <UsernameMessage
-          username={formValue}
-          isValid={isValid}
-          loading={loading}
-          className={styles.usernameMessage}
-        />
-        <button type="submit" className="btn-green" disabled={!isValid}>
-          Choose
-        </button>
+  if (!username) {
+    switch (step) {
+      // case 1 to show stepOne form and passing nextStep, prevStep, and handleInputData as handleFormData method as prop and also formData as value to the fprm
+      case 1:
+        return (
+          <div className="App">
+            <Onboarding1
+              nextStep={nextStep}
+              prevStep={prevStep}
+              handleFormData={handleInputData}
+              values={formData}
+            />
+          </div>
+        );
 
-        <h3>Debug State</h3>
-        <div>
-          Username: {formValue}
-          <br />
-          Loading: {loading.toString()}
-          <br />
-          Username Valid: {isValid.toString()}
-        </div>
-      </form>
-    </section>
-  ) : (
-    <></>
-  );
+      case 2:
+        return (
+          <section>
+            <h3>Choose Username</h3>
+            <form onSubmit={onSubmit}>
+              <input
+                name="username"
+                placeholder="myname"
+                value={formValue}
+                onChange={onChange}
+              />
+              <UsernameMessage
+                username={formValue}
+                isValid={isValid}
+                loading={loading}
+                className={styles.usernameMessage}
+              />
+              <button type="submit" className="btn-green" disabled={!isValid}>
+                Choose
+              </button>
+
+              <h3>Debug State</h3>
+              <div>
+                Username: {formValue}
+                <br />
+                Loading: {loading.toString()}
+                <br />
+                Username Valid: {isValid.toString()}
+              </div>
+            </form>
+          </section>
+        );
+      // default case to show nothing
+      default:
+        return <div className="App"></div>;
+    }
+  }
 };
 
 const SignOutButton = () => {
