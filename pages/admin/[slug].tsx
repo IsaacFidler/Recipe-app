@@ -56,7 +56,7 @@ function PostManager() {
               {preview ? "Edit" : "Preview"}
             </button>
             <Link href={`/${post.username}/${post.slug}`}>
-              <button className="btn-blue">Live view</button>
+              <button className="createNewPost">Live view</button>
             </Link>
           </aside>
         </>
@@ -84,7 +84,7 @@ function PostForm({ defaultValues, postRef, preview }: any) {
   };
 
   return (
-    <form onSubmit={handleSubmit(updatePost)}>
+    <form className={styles.formContainer} onSubmit={handleSubmit(updatePost)}>
       {preview && (
         <div className="card">
           <ReactMarkdown>{watch("content")}</ReactMarkdown>
@@ -94,18 +94,21 @@ function PostForm({ defaultValues, postRef, preview }: any) {
       <div className={preview ? styles.hidden : styles.controls}>
         <ImageUploader />
 
-        <textarea {...register("content")}></textarea>
+        <textarea
+          className={styles.inputBlock}
+          {...register("content")}
+        ></textarea>
 
         <fieldset>
           <input
-            className={styles.checkbox}
+            className="checkbox"
             type="checkbox"
             {...register("published")}
           />
           <label>Published</label>
         </fieldset>
 
-        <button type="submit" className="btn-green">
+        <button type="submit" className="createNewPost">
           Save Changes
         </button>
       </div>

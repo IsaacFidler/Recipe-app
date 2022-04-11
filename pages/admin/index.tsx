@@ -24,6 +24,7 @@ export default function AdminPostsPage(props: any) {
     <main>
       <AuthCheck>
         <CreateNewPost />
+        <hr></hr>
         <PostList />
       </AuthCheck>
     </main>
@@ -41,9 +42,9 @@ function PostList() {
 
   const posts = querySnapshot?.docs.map((doc) => doc.data());
   return (
-    <>
+    <div className={styles.postList}>
       <PostFeed posts={posts} admin />
-    </>
+    </div>
   );
 }
 
