@@ -23,7 +23,7 @@ const Navbar = ({}: Props) => {
         <li>
           <Link href="/" passHref>
             <button className={styles.buttonBlue}>
-              <AiOutlineHome />
+              <AiOutlineHome className={styles.icon} />
             </button>
           </Link>
         </li>
@@ -34,12 +34,14 @@ const Navbar = ({}: Props) => {
             <li className={styles.pushLeft}>
               <Link href="/admin" passHref>
                 <button className={styles.buttonBlue}>
-                  <BsPencil />
+                  <BsPencil className={styles.icon} />
                 </button>
               </Link>
             </li>
             <li className={styles.pushLeft}>
-              <button onClick={signOut}>Sign Out</button>
+              <button className={styles.buttonBlue} onClick={signOut}>
+                Sign Out
+              </button>
             </li>
             <li>
               <Link href={`/${username}`} passHref>

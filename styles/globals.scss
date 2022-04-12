@@ -96,3 +96,21 @@ button[disabled] {
   height: 100%;
   overflow-y: scroll;
 }
+
+.modalContainer {
+  position: absolute;
+  background-color: #1d2021;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(29, 29, 29);
+  border-radius: 30px;
+  width: 40rem;
+  height: 40rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  align-items: center;
+  filter: blur(0px);
+}

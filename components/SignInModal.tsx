@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "../styles/Modal.module.scss";
 import { AiOutlineClose } from "react-icons/ai";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 type Props = {
   isOpen: boolean;
   openModal: any;
@@ -13,15 +17,12 @@ const Modal = ({ isOpen, openModal, closeModal }: Props) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-  // const onSubmit = (e: any) => {
-  //   signInWithEmail();
-  // };
+
   const onSubmit = (data: any) => {
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, data.email, data.password)
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -40,11 +41,11 @@ const Modal = ({ isOpen, openModal, closeModal }: Props) => {
       className={styles.modalContainer}
       style={{ display: isOpen ? "flex" : "none", flexDirection: "column" }}
     >
-      <button onClick={closeModal} className={styles.closeButton}>
+      <button onClick={() => closeModal()} className={styles.closeButton}>
         <AiOutlineClose />
       </button>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
-        <label>Email</label>
+        <label>Email2</label>
         <input className={styles.input} {...register("email")} />
         <label>Password</label>
         <input

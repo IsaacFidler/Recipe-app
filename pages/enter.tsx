@@ -20,6 +20,7 @@ import { FcGoogle } from "react-icons/fc";
 import { AiOutlineMail } from "react-icons/ai";
 import Onboarding1 from "../components/Onboarding1";
 import Modal from "../components/Modal";
+import SignInModal from "../components/SignInModal";
 const EnterPage: NextPage = ({}) => {
   // 1. user signed out <SignInButton/>
   // 2. user signed in , but missing username <UsernameForm/>
@@ -44,7 +45,8 @@ const EnterPage: NextPage = ({}) => {
 export default EnterPage;
 
 const SignInButton = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
 
   const signInWithGoogle = async () => {
     const auth = getAuth();
@@ -74,9 +76,16 @@ const SignInButton = () => {
   const openModal = () => {
     setIsModalOpen(true);
   };
+  const openModal2 = () => {
+    setIsModalOpen2(true);
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const closeModal2 = () => {
+    setIsModalOpen2(false);
   };
 
   return (
@@ -86,12 +95,22 @@ const SignInButton = () => {
         openModal={openModal}
         closeModal={closeModal}
       />
+      <SignInModal
+        isOpen={isModalOpen2}
+        openModal={openModal2}
+        closeModal={closeModal2}
+      />
       <div style={{ filter: isModalOpen ? "blur(8px)" : "blur(0px)" }}>
         <button className={"button2"} onClick={signInWithGoogle}>
           <FcGoogle />
           &nbsp; Sign in with Google
         </button>
         <button className={"button2"} onClick={openModal}>
+          <AiOutlineMail />
+          &nbsp; Sign up with email
+        </button>
+        <h1>Already have an account?</h1>
+        <button className={"button2"} onClick={openModal2}>
           <AiOutlineMail />
           &nbsp; Sign in with email
         </button>
@@ -109,6 +128,7 @@ const UsernameForm = () => {
 
   const [step, setstep] = useState(1);
   const [formData, setFormData] = useState({
+    displayName: "",
     firstName: "",
     lastName: "",
     company: "",
@@ -153,7 +173,7 @@ const UsernameForm = () => {
     batch.set(userDoc, {
       username: formValue,
       photoURL: user.photoURL,
-      displayName: user.displayName,
+      displayName: `${formData.firstName} ${formData.lastName}`,
       firstName: formData.firstName,
       lastName: formData.lastName,
       company: formData.company,
@@ -185,8 +205,6 @@ const UsernameForm = () => {
     }
   };
 
-  // Hit the database for username match after each debounced change
-  // useCallback is required for debounce to work
   const checkUsername = useCallback(
     debounce(async (username: any) => {
       if (username.length >= 3) {
@@ -199,9 +217,13 @@ const UsernameForm = () => {
     }, 500),
     []
   );
+
   useEffect(() => {
     checkUsername(formValue);
   }, [formValue, checkUsername]);
+
+  // Hit the database for username match after each debounced change
+  // useCallback is required for debounce to work
 
   if (!username) {
     switch (step) {
