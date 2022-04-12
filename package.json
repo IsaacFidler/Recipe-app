@@ -10,6 +10,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@bx-looop/bx-ui-lib": "^2.33.0",
     "firebase": "^9.6.10",
     "lodash": "^4.17.21",
     "lodash.kebabcase": "^4.1.1",

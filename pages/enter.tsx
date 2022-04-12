@@ -1,14 +1,25 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import type { NextPage } from "next";
-import { auth, firestore, googleAuthProvider } from "../lib/firebase";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  auth,
+  emailAuthProvider,
+  firestore,
+  googleAuthProvider,
+} from "../lib/firebase";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 import styles from "../styles/enter.module.scss";
 import { UserContext } from "../lib/context";
 import { debounce } from "lodash";
 import { doc, getDoc, writeBatch } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc";
-import Onboarding1 from "../components/onboarding1";
-import Onboarding2 from "../components/Onboarding2";
+import { AiOutlineMail } from "react-icons/ai";
+import Onboarding1 from "../components/Onboarding1";
+import Modal from "../components/Modal";
 const EnterPage: NextPage = ({}) => {
   // 1. user signed out <SignInButton/>
   // 2. user signed in , but missing username <UsernameForm/>
@@ -33,6 +44,8 @@ const EnterPage: NextPage = ({}) => {
 export default EnterPage;
 
 const SignInButton = () => {
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const signInWithGoogle = async () => {
     const auth = getAuth();
     signInWithPopup(auth, googleAuthProvider)
@@ -58,11 +71,32 @@ const SignInButton = () => {
       });
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <button className={"button2"} onClick={signInWithGoogle}>
-      <FcGoogle />
-      Sign in with Google
-    </button>
+    <div>
+      <Modal
+        isOpen={isModalOpen}
+        openModal={openModal}
+        closeModal={closeModal}
+      />
+      <div style={{ filter: isModalOpen ? "blur(8px)" : "blur(0px)" }}>
+        <button className={"button2"} onClick={signInWithGoogle}>
+          <FcGoogle />
+          &nbsp; Sign in with Google
+        </button>
+        <button className={"button2"} onClick={openModal}>
+          <AiOutlineMail />
+          &nbsp; Sign in with email
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -83,6 +117,7 @@ const UsernameForm = () => {
     age: "",
     email: "",
   });
+
   console.log(setstep);
   // function for going to next step by increasing step state by 1
   const nextStep = () => {
@@ -108,7 +143,6 @@ const UsernameForm = () => {
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
-
     // Create refs for both documents
     const userDoc = doc(firestore, `users/${user.uid}`);
     const usernameDoc = doc(firestore, `usernames/${formValue}`);
@@ -126,6 +160,7 @@ const UsernameForm = () => {
       farmName: formData.farmName,
       regen: formData.regen,
     });
+
     batch.set(usernameDoc, { uid: user.uid });
 
     await batch.commit();
@@ -150,10 +185,6 @@ const UsernameForm = () => {
     }
   };
 
-  useEffect(() => {
-    checkUsername(formValue);
-  }, [formValue]);
-
   // Hit the database for username match after each debounced change
   // useCallback is required for debounce to work
   const checkUsername = useCallback(
@@ -168,6 +199,10 @@ const UsernameForm = () => {
     }, 500),
     []
   );
+  useEffect(() => {
+    checkUsername(formValue);
+  }, [formValue, checkUsername]);
+
   if (!username) {
     switch (step) {
       // case 1 to show stepOne form and passing nextStep, prevStep, and handleInputData as handleFormData method as prop and also formData as value to the fprm
@@ -219,6 +254,8 @@ const UsernameForm = () => {
       default:
         return <div className="App"></div>;
     }
+  } else {
+    return <></>;
   }
 };
 

@@ -8,7 +8,7 @@ import {
   where,
   Timestamp,
 } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, EmailAuthProvider } from "firebase/auth";
 
 import { getStorage } from "firebase/storage";
 
@@ -59,6 +59,7 @@ export const fromMillis = Timestamp.fromMillis;
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const googleAuthProvider = new GoogleAuthProvider();
+export const emailAuthProvider = new EmailAuthProvider();
 
 export const firestore = getFirestore(app);
 export const storage = getStorage(app);
